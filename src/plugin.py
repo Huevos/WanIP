@@ -15,7 +15,7 @@ class WanIP(TextBox):
 	def fetch(self):
 		ip = "Unknown"
 		try:
-			r = requests.get("http://ipecho.net/plain")
+			r = requests.get("http://ipecho.net/plain", timeout=3)
 			r.raise_for_status()
 			ip = r.content.decode()
 		except Exception:
