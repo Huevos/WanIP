@@ -15,11 +15,9 @@ class WanIP(TextBox):
 	def fetch(self):
 		ip = "Unknown"
 		try:
-			r = requests.get("http://whatsmyip.com")
+			r = requests.get("http://ipecho.net/plain")
 			r.raise_for_status()
-			i = r.content.find(b"copyToClipboard('")
-			if i > -1:
-				ip = r.content[i + 17:].split(b"'", 1)[0].decode()
+			ip = r.content.decode()
 		except Exception:
 			pass
 		self["AboutScrollLabel"].setText(f"Public IP: {ip}")
@@ -37,6 +35,6 @@ def Plugins(**kwargs):
 	return [
 		PluginDescriptor(
 			name=_("Wan IP"), 
-			description=_("Look up your Wan IP at whatsmyip.com"), 
+			description=_("Look up your Wan IP at ipecho.net"), 
 			where=PluginDescriptor.WHERE_MENU, 
 			fnc=PluginStart,)]
